@@ -416,7 +416,8 @@ def envoyer_email(sujet: str, html: str):
         s.ehlo()
         s.starttls()
         s.login(EMAIL_EXPEDITEUR, EMAIL_MOT_DE_PASSE)
-        for destinataire in [EMAIL_DESTINATAIRE, EMAIL_CC]:
+        destinataires = [d for d in [EMAIL_DESTINATAIRE, EMAIL_CC] if d]
+        for destinataire in destinataires:
             msg = MIMEMultipart("alternative")
             msg["Subject"] = sujet
             msg["From"]    = EMAIL_FROM
